@@ -2,6 +2,7 @@
 This is an example of how to achieve all the necessary transformations
 present in the development requirements.
 """
+import csv
 from EtlChallengeModule.etl_module_data_manipulation import TxtData
 
 
@@ -21,7 +22,9 @@ result.data_to_one_hot_encoding(['engine-location'])
 result.data_to_bool(['aspiration'], ['turbo'])
 result.str_col_to_number(['num-of-cylinders'])
 result.price_to_eur(['price'])
+result.data_to_float(['horsepower'])
 
-"Print the final data rows."
-for r in result.get_data_matrix():
-    print(r)
+with open('output.csv', 'w') as writeFile:
+    writer = csv.writer(writeFile)
+    writer.writerows(result.get_data_matrix())
+writeFile.close()
